@@ -1,0 +1,4 @@
+{
+  "/": { "page": "/test" },
+  "/about": { "page": "/test/about" }
+}

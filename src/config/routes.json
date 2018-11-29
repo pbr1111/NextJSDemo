@@ -1,4 +1,4 @@
 {
-  "/": { "page": "/test" },
-  "/about": { "page": "/test/about" }
+  "/": { "page": "/main/main" },
+  "/upload": { "page": "/upload/upload" }
 }

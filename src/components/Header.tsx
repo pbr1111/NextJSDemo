@@ -1,23 +1,21 @@
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
 
 const linkStyle = {
   marginRight: 15
 };
 
-interface Props {
-
-}
+interface Props {}
 
 export default class Header extends React.Component<Props> {
   render() {
     return (
       <div>
-        <Link href="/" prefetch>
+        <Link href="/" shallow={true} prefetch>
           <a style={linkStyle}>Home</a>
         </Link>
-        <Link href="/about" prefetch>
-          <a style={linkStyle}>About</a>
+        <Link href="/upload" shallow={true} prefetch>
+          <a style={linkStyle}>Upload</a>
         </Link>
       </div>
     );

@@ -11,10 +11,10 @@ export default class Header extends React.Component<Props> {
   render() {
     return (
       <div>
-        <Link href="/" shallow={true} prefetch>
+        <Link href="/">
           <a style={linkStyle}>Home</a>
         </Link>
-        <Link href="/upload" shallow={true} prefetch>
+        <Link href="/upload">
           <a style={linkStyle}>Upload</a>
         </Link>
       </div>

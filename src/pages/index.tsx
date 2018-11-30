@@ -1,19 +1,21 @@
 import React from "react";
-import Link from "next/link";
 import fetch from "isomorphic-unfetch";
+import translatedComponent from "../shared/hocs/translated-component";
+import { BaseProps } from "src/shared/models/props/base-props";
 
-interface Props {
+interface Props extends BaseProps {
   shows?: Array<any>;
 }
 
-export default class extends React.Component<Props> {
+@translatedComponent()
+export default class Index extends React.Component<Props> {
   static async getInitialProps() {
     const res = await fetch(`https://api.tvmaze.com/shows`);
     const shows = await res.json();
 
     console.log(`Fetched shows`);
 
-    return { shows: shows };
+    return { shows };
   }
 
   render() {
@@ -21,14 +23,9 @@ export default class extends React.Component<Props> {
       <div>
         <h1>Batman TV Shows</h1>
         <ul>
+          {this.props.t("home")}
           {this.props.shows != null &&
-            this.props.shows.map((show) => (
-              <li key={show.id}>
-                <Link as={`/p/${show.id}`} href={`/post?id=${show.id}`}>
-                  <a>{show.name}</a>
-                </Link>
-              </li>
-            ))}
+            this.props.shows.map(show => <li key={show.id}>{show.name}</li>)}
         </ul>
       </div>
     );

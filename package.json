@@ -1,18 +1,21 @@
 {
     "scripts": {
-        "dev": "next src",
+        "dev": "node server.js",
         "build": "next build src",
-        "start": "next start src",
+        "start": "NODE_ENV=production node server.js",
         "export": "npm run build && next export src"
     },
     "dependencies": {
+        "@babel/plugin-proposal-decorators": "^7.1.6",
         "@types/next": "^7.0.5",
-        "@types/react": "^16.7.7",
+        "@types/react": "^16.7.10",
         "@types/react-dom": "^16.0.11",
         "@zeit/next-sass": "^1.0.1",
         "@zeit/next-typescript": "^1.1.1",
+        "express": "^4.16.4",
         "isomorphic-unfetch": "^3.0.0",
         "next": "^7.0.2",
+        "next-i18next": "^0.3.1",
         "node-sass": "^4.10.0",
         "react": "^16.6.3",
         "react-dom": "^16.6.3",

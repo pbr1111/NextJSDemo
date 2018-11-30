@@ -1,25 +1,17 @@
-import App, { Container } from "next/app";
 import Layout from "../components/layout";
 import React from "react";
+import App, { Container } from "next/app";
 import "../styles/global.scss";
+import translatedApp from "../shared/hocs/translated-app";
 
+@translatedApp
 export default class MyApp extends App {
-  static async getInitialProps({ Component, router, ctx }) {
-    let pageProps = {};
-
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-
-    return { pageProps };
-  }
-
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component } = this.props;
     return (
       <Container>
         <Layout>
-          <Component {...pageProps} />
+          <Component {...this.props} />
         </Layout>
       </Container>
     );

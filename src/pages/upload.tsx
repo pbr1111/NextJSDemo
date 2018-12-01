@@ -29,8 +29,8 @@ export default class extends React.Component<Props, State> {
   render() {
     return (
       <div>
-        Drag and drop
-        <Dropzone onDrop={files => this.onDrop(files)} accept="image/*">
+        <h1>Drag and drop</h1>
+         <Dropzone onDrop={files => this.onDrop(files)} accept="image/*">
           {this.getFiles()}
         </Dropzone>
         <div>

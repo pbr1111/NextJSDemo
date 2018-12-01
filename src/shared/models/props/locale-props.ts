@@ -1,3 +1,3 @@
 export interface LocaleProps {
-    t(key: string): string;
+    t?(key: string): string;
 }

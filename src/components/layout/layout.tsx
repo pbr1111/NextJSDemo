@@ -1,16 +1,11 @@
 import React from "react";
-import Header from './header';
-
-const layoutStyle = {
-  margin: 20,
-  padding: 20,
-  border: "1px solid #DDD"
-};
+import Header from '../header/header';
+import "./layout.scss"
 
 export default class Layout extends React.Component {
   render() {
     return (
-      <div style={layoutStyle}>
+      <div id="layout">
         <Header />
         {this.props.children}
       </div>

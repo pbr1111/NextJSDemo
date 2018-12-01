@@ -1,8 +1,8 @@
-import Layout from "../components/layout";
+import Layout from "../components/layout/layout";
 import React from "react";
 import App, { Container } from "next/app";
-import "../styles/global.scss";
 import translatedApp from "../shared/hocs/translated-app";
+import "../styles/global.scss";
 
 @translatedApp
 export default class MyApp extends App {

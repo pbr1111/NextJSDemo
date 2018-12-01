@@ -11,7 +11,7 @@ export default class MyApp extends App {
     return (
       <Container>
         <Layout>
-          <Component {...this.props} />
+          <Component {...this.props.pageProps} />
         </Layout>
       </Container>
     );

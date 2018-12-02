@@ -1,13 +1,12 @@
 import React from "react";
 import { BaseProps } from "../models/props/base-props";
-import { withNamespaces } from "../../../i18n";
-
-const defaultNamespace = 'common';
+import { withNamespaces, config } from "../../../i18n";
 
 export default function translatedComponent<Props = {}>(
-  namespace: string = defaultNamespace,
+  namespace: string = config.defaultNS,
   options: any = {}
 ) {
-  return (component: React.ComponentType<Props & BaseProps>) =>
-    withNamespaces(namespace, options)(component);
+  return (component: React.ComponentType<Props & BaseProps>) => {
+    return withNamespaces(namespace, options)(component);
+  }
 }

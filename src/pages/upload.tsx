@@ -16,7 +16,6 @@ export default class extends React.Component<Props, State> {
 
   private onDrop(files: File[]) {
     this.setState({ files: files });
-    console.log(this.state, files);
   }
 
   private getFiles(): JSX.Element[] {

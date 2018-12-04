@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from "react";
 import Router from "next/router";
 import BaseComponent from "../shared/app/base-component";
+import { pageTitle } from "../shared/hoc/page-title";
 
 interface Props {}
 
@@ -9,6 +10,7 @@ interface State {
   password: string;
 }
 
+@pageTitle(() => "Login")
 export default class Login extends BaseComponent<Props, State> {
   constructor(props) {
     super(props);
@@ -35,7 +37,7 @@ export default class Login extends BaseComponent<Props, State> {
           User: <input type="text" onChange={e => this.onUserChanged(e)} />
         </label>
         <label>
-          Password:{" "}
+          Password:
           <input type="password" onChange={e => this.onPasswordChanged(e)} />
         </label>
         <button onClick={() => this.onLogin()}>Login</button>

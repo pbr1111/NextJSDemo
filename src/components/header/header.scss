@@ -1,3 +1,7 @@
 a {
     margin-right: 0.75rem;
 }
+
+a:last-child {
+    float: right;
+}

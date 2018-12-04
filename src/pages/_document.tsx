@@ -1,14 +1,7 @@
-import { Head, Main, NextScript } from "next/document";
+import { Head, NextScript, Main } from "next/document";
 import BaseDocument from "../shared/app/base-document";
 
 export default class MyDocument extends BaseDocument {
-  static async validateAuthToken(token: string): Promise<boolean> {
-    return token !== "";
-  }
-
-  static get loginPagePath(): string {
-    return "/login";
-  }
 
   render() {
     return (

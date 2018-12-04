@@ -3,6 +3,8 @@ import Dropzone from "react-dropzone";
 import { applyLayout } from "../shared/hoc/apply-layout";
 import Layout from "../components/layout/layout";
 import BaseComponent from "../shared/app/base-component";
+import { pageTitle } from "../shared/hoc/page-title";
+import { authComponent } from "../shared/hoc/auth-component";
 
 interface Props {}
 
@@ -10,7 +12,9 @@ interface State {
   files: File[];
 }
 
+@authComponent
 @applyLayout(Layout)
+@pageTitle(() => "Upload")
 export default class Upload extends BaseComponent<Props, State> {
   constructor(props: Props) {
     super(props);

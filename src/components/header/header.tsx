@@ -14,6 +14,9 @@ export default class Header extends React.Component<Props> {
         <Link href="/upload" prefetch>
           <a>Upload</a>
         </Link>
+        <Link href="/logout" prefetch>
+          <a>Logout</a>
+        </Link>
       </div>
     );
   }

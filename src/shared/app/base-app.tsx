@@ -1,3 +1,5 @@
 import App from "next/app";
 
-export default class BaseApp<P = {}> extends App<P> {}
+export interface BaseAppProps {}
+
+export default class BaseApp<P = {} & BaseAppProps> extends App<P> {}

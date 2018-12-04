@@ -1,7 +1,6 @@
 import React from "react";
 import { Container } from "next/app";
 import BaseApp from "../shared/app/base-app";
-
 import "../styles/global.scss";
 
 export default class MyApp extends BaseApp {

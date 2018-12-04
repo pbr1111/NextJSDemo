@@ -1,16 +1,15 @@
-import Layout from "../components/layout/layout";
 import React from "react";
-import App, { Container } from "next/app";
+import { Container } from "next/app";
+import BaseApp from "../shared/app/base-app";
+
 import "../styles/global.scss";
 
-export default class MyApp extends App {
+export default class MyApp extends BaseApp {
   render() {
     const { Component } = this.props;
     return (
       <Container>
-        <Layout>
-          <Component {...this.props.pageProps} />
-        </Layout>
+        <Component {...this.props.pageProps} />
       </Container>
     );
   }

@@ -1,11 +1,15 @@
 import React from "react";
 import fetch from "isomorphic-unfetch";
+import { applyLayout } from "../shared/hoc/apply-layout";
+import Layout from "../components/layout/layout";
+import BaseComponent from "../shared/app/base-component";
 
 interface Props {
   shows?: Array<any>;
 }
 
-export default class Index extends React.Component<Props> {
+@applyLayout(Layout)
+export default class Index extends BaseComponent<Props> {
   static async getInitialProps() {
     const res = await fetch(`https://api.tvmaze.com/shows`);
     const shows = await res.json();

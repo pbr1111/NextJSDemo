@@ -1,10 +1,15 @@
 import React from "react";
 import fetch from "isomorphic-unfetch";
+import { applyLayout } from "../shared/hocs/apply-layout";
+import Layout from "../components/layout/layout";
+import { pageTitle } from "../shared/hocs/page-title";
 
 interface Props {
   shows?: Array<any>;
 }
 
+@applyLayout(Layout)
+@pageTitle(() => "Home")
 export default class Index extends React.Component<Props> {
   static async getInitialProps() {
     const res = await fetch(`https://api.tvmaze.com/shows`);

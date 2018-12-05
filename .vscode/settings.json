@@ -9,5 +9,6 @@
         "node_modules/**": true,
         "src/.next/**": true
     },
+    "typescript.preferences.importModuleSpecifier": "relative",
     "appService.defaultWebAppToDeploy": "/subscriptions/31c4b462-e934-4aa4-b8e6-54a288dfabe4/resourceGroups/NextJsDemo/providers/Microsoft.Web/sites/NextJsDemo"
 }

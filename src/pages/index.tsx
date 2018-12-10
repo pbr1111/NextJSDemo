@@ -11,6 +11,7 @@ interface Props {
 @applyLayout(Layout)
 @pageTitle(() => "Home")
 export default class Index extends React.Component<Props> {
+
   static async getInitialProps() {
     const res = await fetch(`https://api.tvmaze.com/shows`);
     const shows = await res.json();

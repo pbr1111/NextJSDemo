@@ -1,8 +1,10 @@
 import React from "react";
-import Dropzone from "react-dropzone";
+import Dropzone, { DropzoneRenderArgs } from "react-dropzone";
 import { applyLayout } from "../shared/hocs/apply-layout";
 import Layout from "../components/layout/layout";
 import { pageTitle } from "../shared/hocs/page-title";
+import DropzonePreview from "../components/dropzone/dropzone-preview/dropzone-preview";
+import DropzoneInput from "../components/dropzone/dropzone-input/dropzone-input";
 
 interface Props {}
 
@@ -23,24 +25,20 @@ export default class extends React.Component<Props, State> {
     this.setState({ files: files });
   }
 
-  private getFiles(): JSX.Element[] {
-    return this.state.files.map(file => {
-        const fileUrl = URL.createObjectURL(file);
-      return <img src={fileUrl} height={100} />
-    });
-  }
-
   render() {
     return (
       <div>
         <h1>Drag and drop</h1>
-         <Dropzone onDrop={files => this.onDrop(files)} accept="image/*">
-          {this.getFiles()}
+        <Dropzone onDrop={files => this.onDrop(files)} accept="image/*">
+          {(args: DropzoneRenderArgs) => (
+            <div {...args.getRootProps()}>
+              <DropzoneInput {...args}>
+                <DropzonePreview files={this.state.files} />
+              </DropzoneInput>
+            </div>
+          )}
         </Dropzone>
-        <div>
-          Files
-          <span>{this.state.files.length}</span>
-        </div>
+        <div>Files {this.state.files.length}</div>
       </div>
     );
   }

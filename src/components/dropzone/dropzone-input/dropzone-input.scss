@@ -1,0 +1,20 @@
+.dropzone-input {
+  min-height: 10rem;
+  border-width: 0.12rem;
+  border-color: #666;
+  border-style: dashed;
+  border-radius: 0.75rem;
+  padding: 1rem;
+
+  &.accept-drag {
+    border-color: #6c6;
+  }
+
+  &.reject-drag {
+    border-color: #c66;
+  }
+
+  &.active-drag {
+    background-color: #eee;
+  }
+}

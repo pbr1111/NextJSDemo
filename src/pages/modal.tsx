@@ -1,10 +1,14 @@
-import { applyLayout } from "../shared/hocs/apply-layout";
-import { pageTitle } from "../shared/hocs/page-title";
+import { applyLayout } from "../shared/hocs/layout/apply-layout";
+import { pageTitle } from "../shared/hocs/layout/page-title";
 import React from "react";
 import Layout from "../components/layout/layout";
 import FullFrameModal from "../components/full-frame-modal/full-frame-modal";
+import {
+  localizeComponent,
+  LocaleProps
+} from "../shared/hocs/localization/localize-component";
 
-interface Props {}
+interface Props extends LocaleProps {}
 
 interface State {
   showModal: boolean;
@@ -12,7 +16,8 @@ interface State {
 }
 
 @applyLayout(Layout)
-@pageTitle(() => "Modal")
+@localizeComponent
+@pageTitle<Props>(props => props.translate("modal"))
 export default class Modal extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);

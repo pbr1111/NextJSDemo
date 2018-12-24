@@ -1,8 +1,7 @@
-import { NextComponentType, NextContext } from "next";
 import React from "react";
-import Head from "next/head";
+import { NextContext, NextComponentType } from "next";
 
-export function pageTitle<T = {}>(getTitle: (props?: T | any) => string) {
+export function applyLayout(LayoutComponent: React.ComponentType) {
   return (WrappedComponent: NextComponentType): any =>
     class extends React.Component {
       static async getInitialProps(context?: NextContext): Promise<any> {
@@ -14,12 +13,9 @@ export function pageTitle<T = {}>(getTitle: (props?: T | any) => string) {
 
       render() {
         return (
-          <React.Fragment>
-            <Head>
-              <title>{getTitle(this.props)}</title>
-            </Head>
+          <LayoutComponent>
             <WrappedComponent {...this.props} />
-          </React.Fragment>
+          </LayoutComponent>
         );
       }
     };

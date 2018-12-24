@@ -1,5 +1,5 @@
 import React from "react";
-import { modal, ModalProps } from "../../shared/hocs/modal";
+import { modal, ModalProps } from "../../shared/hocs/modal/modal";
 
 interface Props extends ModalProps<string> {}
 

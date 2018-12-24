@@ -1,19 +1,24 @@
 import React from "react";
 import Dropzone, { DropzoneRenderArgs } from "react-dropzone";
-import { applyLayout } from "../shared/hocs/apply-layout";
+import { applyLayout } from "../shared/hocs/layout/apply-layout";
 import Layout from "../components/layout/layout";
-import { pageTitle } from "../shared/hocs/page-title";
+import { pageTitle } from "../shared/hocs/layout/page-title";
 import DropzonePreview from "../components/dropzone/dropzone-preview/dropzone-preview";
 import DropzoneInput from "../components/dropzone/dropzone-input/dropzone-input";
+import {
+  localizeComponent,
+  LocaleProps
+} from "../shared/hocs/localization/localize-component";
 
-interface Props {}
+interface Props extends LocaleProps {}
 
 interface State {
   files: File[];
 }
 
 @applyLayout(Layout)
-@pageTitle(() => "Upload")
+@localizeComponent
+@pageTitle<Props>(props => props.translate("upload"))
 export default class extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);

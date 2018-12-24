@@ -1,7 +1,6 @@
 import React from "react";
-import { NextComponentType } from "next";
-
-import "../../styles/modal.scss";
+import { NextComponentType, NextContext } from "next";
+import "../../../styles/modal.scss";
 
 export interface ModalProps<T> {
   isFullFrame?: boolean;
@@ -23,6 +22,13 @@ export function modal<P extends ModalProps<T>, T = {}>(
   WrappedComponent: NextComponentType<P>
 ): any {
   return class extends React.Component<P> {
+    static async getInitialProps(context?: NextContext): Promise<any> {
+      if (WrappedComponent.getInitialProps != null) {
+        return await WrappedComponent.getInitialProps(context);
+      }
+      return {};
+    }
+
     componentWillMount() {
       document.body.classList.add(BODY_MODAL_CLASSES.modalOpen);
       document.addEventListener("keydown", e => this.onKeyDown(e), false);
@@ -66,7 +72,12 @@ export function modal<P extends ModalProps<T>, T = {}>(
             onClick={() => this.onClickBackdrop()}
           />
           <div className="modal-content">
-            <button onClick={() => this.dismiss()} className="modal-dismiss-button">X</button>
+            <button
+              onClick={() => this.dismiss()}
+              className="modal-dismiss-button"
+            >
+              X
+            </button>
             <WrappedComponent {...this.props} />
           </div>
         </div>

@@ -1,17 +1,18 @@
 import React from "react";
 import fetch from "isomorphic-unfetch";
-import { applyLayout } from "../shared/hocs/apply-layout";
+import { applyLayout } from "../shared/hocs/layout/apply-layout";
 import Layout from "../components/layout/layout";
-import { pageTitle } from "../shared/hocs/page-title";
+import { pageTitle } from "../shared/hocs/layout/page-title";
+import { localizeComponent, LocaleProps } from "../shared/hocs/localization/localize-component";
 
-interface Props {
+interface Props extends LocaleProps {
   shows?: Array<any>;
 }
 
 @applyLayout(Layout)
-@pageTitle(() => "Home")
+@localizeComponent
+@pageTitle<Props>(props => props.translate("home"))
 export default class Index extends React.Component<Props> {
-
   static async getInitialProps() {
     const res = await fetch(`https://api.tvmaze.com/shows`);
     const shows = await res.json();

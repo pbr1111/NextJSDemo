@@ -1,21 +1,23 @@
 import React from "react";
 import Link from "next/link";
 import "./header.scss"
+import { localizeComponent, LocaleProps } from "../../shared/hocs/localization/localize-component";
 
-interface Props {}
+interface Props extends LocaleProps {}
 
+@localizeComponent
 export default class Header extends React.Component<Props> {
   render() {
     return (
       <div>
         <Link href="/" prefetch>
-          <a>Home</a>
+          <a>{this.props.translate("home")}</a>
         </Link>
         <Link href="/upload" prefetch>
-          <a>Upload</a>
+          <a>{this.props.translate("upload")}</a>
         </Link>
         <Link href="/modal" prefetch>
-          <a>Modal</a>
+          <a>{this.props.translate("modal")}</a>
         </Link>
       </div>
     );

@@ -7,20 +7,24 @@ import {
   DefaultAppIProps
 } from "next/app";
 
+interface Props extends DefaultAppIProps, AppProps {
+  defaultLanguageContent: { [key: string]: string };
+}
+
 interface State {
-  currentLanguageCode: string;
-  currentLocale: Locale;
+  languageCode: string;
+  content: { [key: string]: string };
 }
 
 export function localizeApp(defaultLanguageCode: string, locales: Locale[]) {
   return (WrappedApp: AppComponentType): any =>
-    class extends React.Component<DefaultAppIProps & AppProps, State> {
-      constructor(props: DefaultAppIProps & AppProps) {
+    class extends React.Component<Props, State> {
+      constructor(props: Props) {
         super(props);
 
         this.state = {
-          currentLanguageCode: defaultLanguageCode,
-          currentLocale: this.getLocale(defaultLanguageCode)
+          languageCode: defaultLanguageCode,
+          content: this.props.defaultLanguageContent
         };
       }
 
@@ -29,42 +33,44 @@ export function localizeApp(defaultLanguageCode: string, locales: Locale[]) {
         if (context.Component.getInitialProps != null) {
           pageProps = await context.Component.getInitialProps(context.ctx);
         }
+
         return {
-          pageProps
+          pageProps,
+          defaultLanguageContent: await this.getLocaleContent(
+            defaultLanguageCode
+          )
         };
       }
 
-      getLocale(languageCode: string): Locale {
-        return locales.find(locale => locale.languageCode == languageCode);
-      }
-
-      setLanguage(languageCode: string): void {
-        this.setState({
-          currentLanguageCode: languageCode,
-          currentLocale: this.getLocale(languageCode)
-        });
+      static async getLocaleContent(
+        languageCode: string
+      ): Promise<{ [key: string]: string }> {
+        const locale = locales.find(
+          locale => locale.languageCode == languageCode
+        );
+        const localeContent = locale.contentLoader;
+        return (await localeContent()).default;
       }
 
       getTranslation(key: string): string {
-        const localeContent = this.state.currentLocale.content;
+        const localeContent = this.state.content;
         if (!(key in localeContent)) {
           console.warn(
             `[getTranslation]: Key "${key}" does not exist in "${
-              this.state.currentLanguageCode
+              this.state.languageCode
             }" language`
           );
         }
-        return this.state.currentLocale.content[key];
+        return localeContent[key];
       }
 
       render() {
         return (
           <LocaleContext.Provider
             value={{
-              setLanguage: languageCode => this.setLanguage(languageCode),
               getTranslation: key => this.getTranslation(key),
               locales: locales,
-              currentLanguageCode: this.state.currentLanguageCode
+              currentLanguageCode: this.state.languageCode
             }}
           >
             <WrappedApp {...this.props} />

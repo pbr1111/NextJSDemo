@@ -3,7 +3,10 @@ import fetch from "isomorphic-unfetch";
 import { applyLayout } from "../shared/hocs/layout/apply-layout";
 import Layout from "../components/layout/layout";
 import { pageTitle } from "../shared/hocs/layout/page-title";
-import { localizeComponent, LocaleProps } from "../shared/hocs/localization/localize-component";
+import {
+  localizeComponent,
+  LocaleProps
+} from "../shared/hocs/localization/localize-component";
 
 interface Props extends LocaleProps {
   shows?: Array<any>;
@@ -26,6 +29,15 @@ export default class Index extends React.Component<Props> {
     return (
       <div>
         <h1>Batman TV Shows</h1>
+        <button
+          onClick={() => {
+            this.props.currentLanguageCode == "en"
+              ? this.props.setLanguage("es")
+              : this.props.setLanguage("en");
+          }}
+        >
+          Change language
+        </button>
         <ul>
           {this.props.shows != null &&
             this.props.shows.map(show => <li key={show.id}>{show.name}</li>)}

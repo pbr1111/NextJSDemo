@@ -6,8 +6,15 @@ import {
   NextAppContext,
   DefaultAppIProps
 } from "next/app";
+import { NextContext } from "next";
+import { setCookie, getCookies } from "../../helpers/cookies";
+
+const COOKIE_NAMES = {
+  language: "language"
+};
 
 interface Props extends DefaultAppIProps, AppProps {
+  initialLanguageCode: string;
   defaultLanguageContent: { [key: string]: string };
 }
 
@@ -18,12 +25,12 @@ interface State {
 
 export function localizeApp(defaultLanguageCode: string, locales: Locale[]) {
   return (WrappedApp: AppComponentType): any =>
-    class extends React.Component<Props, State> {
+    class LocalizeApp extends React.Component<Props, State> {
       constructor(props: Props) {
         super(props);
 
         this.state = {
-          languageCode: defaultLanguageCode,
+          languageCode: this.props.initialLanguageCode,
           content: this.props.defaultLanguageContent
         };
       }
@@ -34,12 +41,17 @@ export function localizeApp(defaultLanguageCode: string, locales: Locale[]) {
           pageProps = await context.Component.getInitialProps(context.ctx);
         }
 
+        const languageCode = this.getInitialLanguageCode(context.ctx);
         return {
           pageProps,
-          defaultLanguageContent: await this.getLocaleContent(
-            defaultLanguageCode
-          )
+          initialLanguageCode: languageCode,
+          defaultLanguageContent: await this.getLocaleContent(languageCode)
         };
+      }
+
+      static getInitialLanguageCode(ctx: NextContext): string {
+        const { language } = getCookies(ctx);
+        return language ? language : defaultLanguageCode;
       }
 
       static async getLocaleContent(
@@ -64,11 +76,20 @@ export function localizeApp(defaultLanguageCode: string, locales: Locale[]) {
         return localeContent[key];
       }
 
+      async setLanguage(languageCode: string): Promise<void> {
+        this.setState({
+          languageCode: languageCode,
+          content: await LocalizeApp.getLocaleContent(languageCode)
+        });
+        setCookie(COOKIE_NAMES.language, languageCode);
+      }
+
       render() {
         return (
           <LocaleContext.Provider
             value={{
               getTranslation: key => this.getTranslation(key),
+              setLanguage: languageCode => this.setLanguage(languageCode),
               locales: locales,
               currentLanguageCode: this.state.languageCode
             }}

@@ -4,6 +4,8 @@ import { LocaleContext } from "../../contexts/locale-context";
 
 export interface LocaleProps {
   translate(key: string): string;
+  setLanguage(languageCode: string): void;
+  currentLanguageCode: string;
 }
 
 export function localizeComponent<P extends LocaleProps, T = {}>(
@@ -24,6 +26,8 @@ export function localizeComponent<P extends LocaleProps, T = {}>(
             <WrappedComponent
               {...this.props}
               translate={key => context.getTranslation(key)}
+              setLanguage={languageCode => context.setLanguage(languageCode)}
+              currentLanguageCode={context.currentLanguageCode}
             />
           )}
         </LocaleContext.Consumer>

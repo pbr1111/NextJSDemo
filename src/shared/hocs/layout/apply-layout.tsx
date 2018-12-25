@@ -1,16 +1,12 @@
 import React from "react";
-import { NextContext, NextComponentType } from "next";
+import { NextComponentType } from "next";
+import { createComponentWithHoistedStatics } from "../../helpers/hocs";
 
-export function applyLayout(LayoutComponent: React.ComponentType) {
-  return (WrappedComponent: NextComponentType): any =>
+export const applyLayout = (LayoutComponent: React.ComponentType) => (
+  WrappedComponent: NextComponentType
+) =>
+  createComponentWithHoistedStatics(
     class extends React.Component {
-      static async getInitialProps(context?: NextContext): Promise<any> {
-        if (WrappedComponent.getInitialProps != null) {
-          return await WrappedComponent.getInitialProps(context);
-        }
-        return {};
-      }
-
       render() {
         return (
           <LayoutComponent>
@@ -18,5 +14,6 @@ export function applyLayout(LayoutComponent: React.ComponentType) {
           </LayoutComponent>
         );
       }
-    };
-}
+    },
+    WrappedComponent
+  );

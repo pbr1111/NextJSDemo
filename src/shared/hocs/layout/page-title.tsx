@@ -1,17 +1,13 @@
-import { NextComponentType, NextContext } from "next";
+import { NextComponentType } from "next";
 import React from "react";
 import Head from "next/head";
+import { createComponentWithHoistedStatics } from "../../helpers/hocs";
 
-export function pageTitle<T = {}>(getTitle: (props?: T) => string) {
-  return (WrappedComponent: NextComponentType): any =>
+export const pageTitle = <T extends Object = {}>(
+  getTitle: (props?: T) => string
+) => (WrappedComponent: NextComponentType) =>
+  createComponentWithHoistedStatics(
     class extends React.Component<T> {
-      static async getInitialProps(context?: NextContext): Promise<any> {
-        if (WrappedComponent.getInitialProps != null) {
-          return await WrappedComponent.getInitialProps(context);
-        }
-        return {};
-      }
-
       render() {
         return (
           <React.Fragment>
@@ -22,5 +18,6 @@ export function pageTitle<T = {}>(getTitle: (props?: T) => string) {
           </React.Fragment>
         );
       }
-    };
-}
+    },
+    WrappedComponent
+  );

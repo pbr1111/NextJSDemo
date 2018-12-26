@@ -1,0 +1,55 @@
+@import "./flexbox.scss";
+
+@mixin layout {
+  width: 100%;
+  min-width: 0;
+}
+
+@mixin flex-auto {
+  @include flex-grow(0);
+  @include flex-shrink(0);
+  @include flex-basis(auto);
+}
+
+@mixin flex-available {
+  @include flex-grow(1);
+  @include flex-shrink(1);
+  @include flex-basis(auto);
+}
+
+.horizontal-layout {
+  @include layout();
+  @include flexbox();
+  @include flex-direction(row);
+  width: 100%;
+  min-width: 0;
+}
+
+.vertical-layout {
+  @include layout();
+  @include flexbox();
+  @include flex-direction(column);
+}
+
+.col-auto {
+  @include flex-auto();
+  position: relative;
+}
+
+.col-available {
+  @include flex-available();
+  position: relative;
+}
+
+.row-auto {
+  @include flex-auto();
+  position: relative;
+  width: 100%;
+}
+
+.row-available {
+  @include flex-available();
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}

@@ -4,9 +4,9 @@ import { LocaleContext } from "../../contexts/locale-context";
 import { createComponentWithHoistedStatics } from "../../helpers/hocs";
 
 export interface LocaleProps {
-  translate(key: string): string;
-  setLanguage(languageCode: string): void;
-  currentLanguageCode: string;
+  translate?: (key: string) => string;
+  setLanguage?: (languageCode: string) => void;
+  currentLanguageCode?: string;
 }
 
 export const localizeComponent = <P extends LocaleProps, T = {}>(
